@@ -1,0 +1,10 @@
+<a href="/">Takaisin etusivulle</a> | <a href="/new">Uusi viesti</a>
+<br>
+Viestien määrä {{ count }}
+<hr>
+{% for message in messages %}
+<i>Viesti:</i> {{ message[0] }}
+<p>
+<i>Aika:</i> {{ message[1].strftime("%d.%m.%Y %H:%M:%S") }}
+<hr>
+{% endfor %}
