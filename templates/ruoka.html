@@ -1,10 +1,12 @@
-<a href="/">Takaisin etusivulle</a> | <a href="/new">Uusi viesti</a>
+<a href="/">Takaisin etusivulle</a> | <a href="/new">Uusi ketju</a>
 <br>
-Viestien määrä {{ count }}
+Ketjujen määrä {{ count }}
 <hr>
-{% for message in messages %}
-<i>Viesti:</i> {{ message[0] }}
+<form action="/choose_thread" method="POST">
+{% for thread in threads %}
+<b>Otsikko:</b> <a href="/ruoka/<int:id>">{{ thread[0] }}</a> <br>
+<b>Aloitus:</b> {{ thread[1] }}
 <p>
-<i>Aika:</i> {{ message[1].strftime("%d.%m.%Y %H:%M:%S") }}
 <hr>
 {% endfor %}
+</form>
