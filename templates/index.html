@@ -1,3 +1,15 @@
 Valitse aihe:
 <br>
 <a href="/musiikki">Musiikki</a> | <a href="/ruoka">Ruoka</a> | <a href="/yliopisto">Yliopisto</a>
+{% if session.username %}
+<p>Olet kirjautunut tunnuksella {{ session.käyttäjätunnus }}</p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/login" method="POST">
+<p>Tunnus:<br>
+<input type="text" name="käyttäjätunnus"></p>
+<p>Salasana:<br>
+<input type="password" name="salasana"></p>
+<input type="submit" value="Kirjaudu">
+</form>
+{% endif %}
