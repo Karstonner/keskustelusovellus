@@ -7,17 +7,17 @@ def get_list():
     return result.fetchall()
 
 def get_music_list():
-    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'musiikki' ORDER BY sent_at")
+    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'musiikki' ORDER BY sent_at DESC")
     result = db.session.execute(sql)
     return result.fetchall()
 
 def get_food_list():
-    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'ruoka' ORDER BY sent_at")
+    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'ruoka' ORDER BY sent_at DESC")
     result = db.session.execute(sql)
     return result.fetchall()
 
 def get_uni_list():
-    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'yliopisto' ORDER BY sent_at")
+    sql = text("SELECT content, sent_at FROM messages WHERE topic = 'yliopisto' ORDER BY sent_at DESC")
     result = db.session.execute(sql)
     return result.fetchall()
     
