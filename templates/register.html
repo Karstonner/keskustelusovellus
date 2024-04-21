@@ -1,3 +1,6 @@
+{% if session.username %}
+<a href="/login">Kirjaudu sisään</a>
+{% else %}
 <form action="/register" method="post">
 Tunnus: <input type="text" name="tunnus">
 <p>
@@ -7,3 +10,4 @@ Toista salasana: <input type="password" name="salasana2">
 <p>
 <input type="submit" value="Rekisteröidy">
 </form>
+{% endif %}
