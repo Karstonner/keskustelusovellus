@@ -23,8 +23,11 @@ CREATE TABLE threads (
 CREATE TABLE messages (
 	id SERIAL PRIMARY KEY,
 	content TEXT CHECK(content IS NOT NULL AND length(content) > 1 AND length(content) < 280),
-	topic TEXT,
 	thread INTEGER REFERENCES threads,
 	user_id INTEGER REFERENCES users,
 	sent_at TIMESTAMP
 );
+
+INSERT INTO topics (name) VALUES ('musiikki');
+INSERT INTO topics (name) VALUES ('ruoka');
+INSERT INTO topics (name) VALUES ('yliopisto');
