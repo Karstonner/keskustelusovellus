@@ -1,13 +1,12 @@
 from app import app
 from flask import render_template, request, redirect
 from sqlalchemy.sql import text
-import messages, users
+import messages, users, threads
 topics = ["musiikki", "ruoka", "yliopisto"]
 
 @app.route("/")
 def index():
-    list = messages.get_list()
-    return render_template("index.html", count=len(list), messages=list)
+    return render_template("index.html")
 
 @app.route("/login",methods=["GET", "POST"])
 def login():
@@ -43,18 +42,18 @@ def register():
     
 @app.route("/musiikki")
 def musiikki():
-    list = messages.get_music_list()
-    return render_template("musiikki.html", count=len(list), messages=list)
+    list = threads.get_music_list()
+    return render_template("musiikki.html", count=len(list), threads=list)
 
 @app.route("/ruoka")
 def ruoka():
-    list = messages.get_food_list()
-    return render_template("ruoka.html", count=len(list), messages=list)
+    list = threads.get_food_list()
+    return render_template("ruoka.html", count=len(list), threads=list)
 
 @app.route("/yliopisto")
 def yliopisto():
-    list = messages.get_uni_list()
-    return render_template("yliopisto.html", count=len(list), messages=list)
+    list = threads.get_uni_list()
+    return render_template("yliopisto.html", count=len(list), threads=list)
 
 @app.route("/new")
 def new():
@@ -62,9 +61,21 @@ def new():
 
 @app.route("/send", methods=["POST"])
 def send():
-    content = request.form["content"]
+    opening = request.form["opening"]
+    title = request.form["title"]
+    topic_number = int(request.form["topic"])
     topic = topics[int(request.form["topic"]) - 1]
-    if messages.send(content, topic):
+    if threads.new_thread(title, opening, topic_number):
         return redirect(f"/{topic}")
     else:
         return render_template("error.html", message="Jokin meni pieleen")
+
+@app.route("/musiikki/<int:id>", methods=["POST"])
+def choose_thread(id):
+    sql = text("SELECT title FROM threads WHERE id=:id")
+    result = db.session.execute(sql, {"id":id})
+    thread = result.fetchone()
+    sql = text("SELECT M.content FROM messages M, threads T WHERE M.thread=:id")
+    result = db.session.execute(sql, {"M.thread":id})
+    messages = result.fetchall()
+    return render_template("musiikki.html", id=id, thread=thread, messages=messages)
