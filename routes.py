@@ -74,6 +74,12 @@ def send():
     
     opening = request.form["opening"]
     title = request.form["title"]
+    
+    if len(opening) < 5 or len(opening) > 50:
+        return render_template("error.html", message="Aloituksen sallittu pituus on 5-50 merkkiä")
+    if len(title) < 5 or len(opening) > 30:
+        return render_template("error.html", message="Otsikon sallittu pituus on 5-30 merkkiä")
+        
     topic_number = int(request.form["topic"])
     topic = topics[int(request.form["topic"]) - 1]
     if threads.new_thread(title, opening, topic_number):
