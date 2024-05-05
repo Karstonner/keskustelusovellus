@@ -6,7 +6,10 @@ topics = ["musiikki", "ruoka", "yliopisto"]
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    musiikki_lista = threads.get_music_list()
+    ruoka_lista = threads.get_food_list()
+    yliopisto_lista = threads.get_uni_list()
+    return render_template("index.html", mcount=len(musiikki_lista), rcount=len(ruoka_lista), ycount=len(yliopisto_lista))
 
 @app.route("/login",methods=["GET", "POST"])
 def login():
@@ -88,7 +91,7 @@ def send():
         return render_template("error.html", message="Jokin meni pieleen")
 
 @app.route("/musiikki/<int:id>", methods=["POST"])
-def choose_thread(id):
+def choose_m_thread(id):
     sql = text("SELECT title FROM threads WHERE id=:id")
     result = db.session.execute(sql, {"id":id})
     thread = result.fetchone()
@@ -96,3 +99,23 @@ def choose_thread(id):
     result = db.session.execute(sql, {"M.thread":id})
     messages = result.fetchall()
     return render_template("musiikki.html", id=id, thread=thread, messages=messages)
+
+@app.route("/ruoka/<int:id>", methods=["POST"])
+def choose_r_thread(id):
+    sql = text("SELECT title FROM threads WHERE id=:id")
+    result = db.session.execute(sql, {"id":id})
+    thread = result.fetchone()
+    sql = text("SELECT M.content FROM messages M, threads T WHERE M.thread=:id")
+    result = db.session.execute(sql, {"M.thread":id})
+    messages = result.fetchall()
+    return render_template("ruoka.html", id=id, thread=thread, messages=messages)
+
+@app.route("/yliopisto/<int:id>", methods=["POST"])
+def choose_r_thread(id):
+    sql = text("SELECT title FROM threads WHERE id=:id")
+    result = db.session.execute(sql, {"id":id})
+    thread = result.fetchone()
+    sql = text("SELECT M.content FROM messages M, threads T WHERE M.thread=:id")
+    result = db.session.execute(sql, {"M.thread":id})
+    messages = result.fetchall()
+    return render_template("yliopisto.html", id=id, thread=thread, messages=messages)

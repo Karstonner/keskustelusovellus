@@ -1,6 +1,17 @@
 Valitse aihe:
 <br>
-<a href="/musiikki">Musiikki</a> | <a href="/ruoka">Ruoka</a> | <a href="/yliopisto">Yliopisto</a> <br>
+<a href="/musiikki">Musiikki</a>
+<br>
+Ketjujen määrä: {{ mcount }}
+<br>
+<a href="/ruoka">Ruoka</a>
+<br>
+Ketjujen määrä: {{ rcount }}
+<br>
+<a href="/yliopisto">Yliopisto</a>
+<br>
+Ketjujen määrä: {{ ycount }}
+<br>
 {% if session.user_id %}
 <p>Olet kirjautunut tunnuksella {{ session.tunnus }}</p>
 <a href="/logout">Kirjaudu ulos</a>
