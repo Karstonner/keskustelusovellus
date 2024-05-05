@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS participants CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS threads CASCADE;
 DROP TABLE IF EXISTS topics CASCADE;
@@ -5,9 +6,8 @@ DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
-	tunnus TEXT UNIQUE CHECK(tunnus IS NOT NULL AND length(tunnus) > 1 AND length(tunnus) < 15),
-	salasana TEXT CHECK (salasana IS NOT NULL AND length(salasana) > 8),
-	is_admin INTEGER
+	tunnus TEXT UNIQUE,
+	salasana TEXT
 );
 CREATE TABLE topics (
 	id SERIAL PRIMARY KEY,
@@ -27,6 +27,11 @@ CREATE TABLE messages (
 	user_id INTEGER REFERENCES users,
 	sent_at TIMESTAMP
 );
+CREATE TABLE participants (
+	user_id INTEGER REFERENCES users,
+	thread INTEGER REFERENCES threads
+);
+	
 
 INSERT INTO topics (name) VALUES ('musiikki');
 INSERT INTO topics (name) VALUES ('ruoka');
