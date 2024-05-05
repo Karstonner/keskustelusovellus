@@ -1,4 +1,4 @@
-{% if session.username %}
+{% if session.user_id %}
 <a href="/login">Kirjaudu sisään</a>
 {% else %}
 <form action="/register" method="post">

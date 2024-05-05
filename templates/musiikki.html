@@ -5,7 +5,8 @@ Ketjujen määrä {{ count }}
 <form action="/choose_thread" method="POST">
 {% for thread in threads %}
 <b>Otsikko:</b> <a href="/musiikki/<int:id>">{{ thread[0] }}</a> <br>
-<b>Aloitus:</b> {{ thread[1] }}
+<b>Aloitus:</b> {{ thread[2] }}
+<b>Aloittaja:</b> {{ thread[1] }}
 <p>
 <hr>
 {% endfor %}

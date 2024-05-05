@@ -1,8 +1,8 @@
 Valitse aihe:
 <br>
 <a href="/musiikki">Musiikki</a> | <a href="/ruoka">Ruoka</a> | <a href="/yliopisto">Yliopisto</a> <br>
-{% if session.username %}
-<p>Olet kirjautunut tunnuksella {{ session.käyttäjätunnus }}</p>
+{% if session.user_id %}
+<p>Olet kirjautunut tunnuksella {{ session.tunnus }}</p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 Kirjaudu sisään <a href="/login">täältä</a>

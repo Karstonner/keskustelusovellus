@@ -1,11 +1,6 @@
 from db import db
 from sqlalchemy.sql import text
 
-def get_list():
-    sql = text("SELECT content, sent_at FROM messages ORDER BY sent_at")
-    result = db.session.execute(sql)
-    return result.fetchall()
-
 def get_music_list():
     sql = text("SELECT content, sent_at FROM messages WHERE topic = 'musiikki' ORDER BY sent_at DESC")
     result = db.session.execute(sql)
@@ -21,7 +16,7 @@ def get_uni_list():
     result = db.session.execute(sql)
     return result.fetchall()
     
-def send(content, topic):
+def send(content, thread):
     sql = text("INSERT INTO messages (content, topic, sent_at) VALUES (:content, :topic, NOW())")
     db.session.execute(sql, {"content":content, "topic":topic})
     db.session.commit()
