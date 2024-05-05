@@ -17,12 +17,12 @@ CREATE TABLE threads (
 	id SERIAL PRIMARY KEY,
 	topic INTEGER REFERENCES topics,
 	creator INTEGER REFERENCES users,
-	title TEXT CHECK(title IS NOT NULL AND length(title) > 1 AND length(title) < 50),
-	opening TEXT CHECK(opening IS NOT NULL AND length(opening) > 1 AND length(opening) < 280)
+	title TEXT,
+	opening TEXT
 );
 CREATE TABLE messages (
 	id SERIAL PRIMARY KEY,
-	content TEXT CHECK(content IS NOT NULL AND length(content) > 1 AND length(content) < 280),
+	content TEXT,
 	thread INTEGER REFERENCES threads,
 	user_id INTEGER REFERENCES users,
 	sent_at TIMESTAMP
