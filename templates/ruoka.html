@@ -1,11 +1,13 @@
 <a href="/">Takaisin etusivulle</a> | <a href="/new">Uusi ketju</a>
 <br>
-Ketjujen määrä {{ count }}
+<h1 align="left">Ketjujen määrä: {{ count }}</h1>
 <hr>
 <form action="/choose_thread" method="POST">
 {% for thread in threads %}
-<b>Otsikko:</b> <a href="/ruoka/<int:id>">{{ thread[0] }}</a> <br>
+<b>Otsikko:</b> <a href="/ruoka/{{ thread.id }}">{{ thread[0] }}</a> {text-align: right;} 
+<br>
 <b>Aloitus:</b> {{ thread[1] }}
+<b>Aloittaja:</b> {{ thread[2] }}
 <p>
 <hr>
 {% endfor %}
